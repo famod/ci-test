@@ -44,3 +44,6 @@ jobs:
 
       - name: images 2
         run: docker images
+        
+      - name: share
+        run: sudo du -s /usr/share/*/ | sort -n
