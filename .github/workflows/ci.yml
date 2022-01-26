@@ -30,5 +30,17 @@ jobs:
         run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: images 1
+        run: docker images
+        
+      - name: df 1
+        run: df -h
+
+      - name: rmi
+        run: docker rmi node:12 node:14 node:16 buildpack-deps:stretch buildpack-deps:buster buildpack-deps:bullseye
+
+      - name: df 2
+        run: df -h
+
+      - name: images 2
         run: docker images
