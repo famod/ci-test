@@ -29,7 +29,7 @@ jobs:
           }
           - {
             name: "Two",
-            foo: "bar"
+            mvn-version: "3.8.5"
           }
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -37,7 +37,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        if: "matrix.java.foo != ''"
-        run: echo Hello, world!
+      - name: Switch Maven version
+        if: "matrix.java.mvn-version != ''"
+        run: echo 'distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${{matrix.java.mvn-version}}/apache-maven-${{matrix.java.mvn-version}}-bin.zip' >> .mvn/wrapper/maven-wrapper.properties
+
+      - name: Cat
+        run: cat .mvn/wrapper/maven-wrapper.properties
