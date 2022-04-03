@@ -28,8 +28,8 @@ jobs:
             name: "One"
           }
           - {
-            name: "Two"
-            foo: "bar",
+            name: "Two",
+            foo: "bar"
           }
 
     # Steps represent a sequence of tasks that will be executed as part of the job
