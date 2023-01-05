@@ -38,7 +38,11 @@ jobs:
         run: docker image ls
       - name: Show free space
         run: df -h
-
+      - name: dotnet consumption
+        run: du -hs /usr/share/dotnet
+      - name: swift consumption
+        run: du -hs /usr/share/swift
+        
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
