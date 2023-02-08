@@ -45,7 +45,7 @@ jobs:
           echo bar >> modules.log
           GIB_IMPACTED="$(cat modules.log)"
           echo "${GIB_IMPACTED}"
-          echo "impacted_modules=${GIB_IMPACTED//$'\n'/'%0A'}" >> $GITHUB_OUTPUT
+          echo "impacted_modules=${GIB_IMPACTED}" >> $GITHUB_OUTPUT
   output:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
