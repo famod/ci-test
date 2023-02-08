@@ -38,7 +38,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: set-some-output
+      - name: set some output
+        id: set-some-output
         run: |
           echo foo > modules.log
           echo bar >> modules.log
