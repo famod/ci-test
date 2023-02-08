@@ -22,6 +22,8 @@ jobs:
 
     strategy:
       fail-fast: false
+    outputs:
+      gib_impacted: ${{ steps.set-some-output.outputs.impacted_modules }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: List images
@@ -36,12 +38,22 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: set some output
+      - name: set-some-output
         run: |
           echo foo > modules.log
           echo bar >> modules.log
           GIB_IMPACTED="$(cat modules.log)"
           echo "impacted_modules=${GIB_IMPACTED//$'\n'/'%0A'}" >> $GITHUB_OUTPUT
+  output:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+    needs: build
+    env:
+      GIB_IMPACTED_MODULES: ${{ needs.build.outputs.gib_impacted }}
+    steps:
       - name: output
         run: |
-          echo "${GIB_IMPACTED}"
+          echo "${GIB_IMPACTED_MODULES}"
