@@ -22,16 +22,6 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        java:
-          - {
-            name: "One"
-          }
-          - {
-            name: "Two",
-            mvn-version: "3.8.5"
-          }
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: List images
@@ -46,9 +36,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Switch Maven version
-        if: "matrix.java.mvn-version != ''"
-        run: echo 'distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${{matrix.java.mvn-version}}/apache-maven-${{matrix.java.mvn-version}}-bin.zip' >> .mvn/wrapper/maven-wrapper.properties
-
-      - name: Cat
-        run: cat .mvn/wrapper/maven-wrapper.properties
+      - name: set some output
+        run: |
+          echo foo > modules.log
+          echo bar >> modules.log
+          GIB_IMPACTED="$(cat modules.log)"
+          echo "impacted_modules=${GIB_IMPACTED//$'\n'/'%0A'}" >> $GITHUB_OUTPUT
+      - name: output
+        run: |
+          echo "${GIB_IMPACTED}"
